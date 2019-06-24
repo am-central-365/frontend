@@ -8,7 +8,7 @@ export default function UiDisplay() {
         <div>
             <p>Show result:</p>
             <ul>
-            { state.result.value.map(e => <li key={e}>{e}</li>) }
+            { state.result.value.map(e => <li key={e.email}>{`name: ${JSON.stringify(e.name, null, 2)}, email: ${e.email}`}</li>) }
             </ul>
         </div>
     );

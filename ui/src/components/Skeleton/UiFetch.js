@@ -11,21 +11,21 @@ export function useFetchEffect() {
             return;
         }
         actions.setResult({ value: initValue, loading: true });
-        setTimeout(() => actions.setResult({value: ["nothing yet"], loading: false}), 500);
-        // const url = `/rest/action?q=${state.input}`;
-        // fetch(url).then((response) => {
-        //     switch (response.status) {
-        //         case 200:
-        //             return response.json();
-        //         default:
-        //             console.error(response);
-        //             return Promise.reject(new Error('Failed to load results.'));
-        //     }
-        // }).then((result) => {
-        //     actions.setResult({ value: result, loading: false });
-        // }).catch((error) => {
-        //     actions.setResult({ value: initValue, error, loading: false });
-        // });
+        // setTimeout(() => actions.setResult({value: ["nothing yet"], loading: false}), 500);
+        const url = `https://randomuser.me/api/?results=${state.input.length}`;
+        fetch(url).then((response) => {
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                default:
+                    console.error(response);
+                    return Promise.reject(new Error('Failed to load results.'));
+            }
+        }).then((result) => {
+            actions.setResult({ value: result.results, loading: false });
+        }).catch((error) => {
+            actions.setResult({ value: initValue, error, loading: false });
+        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ state.input ]);
 }
